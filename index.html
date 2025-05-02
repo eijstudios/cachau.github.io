@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Bienvenida</title>
+    <title>Cachau To The Moon</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,28 +50,18 @@
     <h1>Cachau to the moon</h1>
     <p>Choose an option to continue:</p>
     <button id="playButton">Play</button>
-    <button id="donateButton">Donation</button>
+    <button id="donateButton">Donation (0.20π)</button>
     <div id="message"></div>
-
+    <script type=»text/javascript»>
+        document.oncontextmenu = function(){return false;}
+    </script>
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <script>
-        const scopes = ['payments'];
         // Inicializar el SDK de Pi Network
         if (typeof Pi !== "undefined") {
             Pi.init({
                 version: "2.0",
                 sandbox: true // Cambiar a false en producción
-            });
-            // Authenticate the user, and get permission to request payments from them:
-            
-            // Read more about this callback in the SDK reference:
-            function onIncompletePaymentFound(payment) { /* ... */ };
-
-            Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
-                console.log(`Hi there! You're ready to make payments!`);
-                messageElement.textContent = "Hi there! You're ready to make payments!";
-            }).catch(function(error) {
-                console.error(error);
             });
         }else {
             console.error("El SDK de Pi Network no está disponible.");
@@ -96,12 +86,6 @@
                     amount: 0.20, // Cantidad de Pi a donar
                     memo: "Voluntary donation", // Descripción de la donación
                     metadata: { purpose: "donation" , productid: "1234567890"}, // Información adicional
-                },{
-                    // Callbacks you need to implement - read more about those in the detailed docs linked below:
-                    onReadyForServerApproval: function(paymentId) { /* ... */ },
-                    onReadyForServerCompletion: function(paymentId, txid) { /* ... */ },
-                    onCancel: function(paymentId) { /* ... */ },
-                    onError: function(error, payment) { /* ... */ },
                 });
 
                 // Si el pago se completa con éxito
